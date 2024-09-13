@@ -15,7 +15,16 @@ import static src.LeetCode.partition;
 import static src.LeetCode.removeDuplicates;
 import static src.LeetCode.removeElement;
 import static src.LeetCode.rotateArray;
+import static src.LeetCodeTasks.binarySearch;
+import static src.LeetCodeTasks.binarySearchRec;
+import static src.LeetCodeTasks.findDuplicate;
+import static src.LeetCodeTasks.findLeft;
+import static src.LeetCodeTasks.findMaxLength;
+import static src.LeetCodeTasks.peakIndexInMountainArray;
+import static src.LeetCodeTasks.searchInShifted;
 import static src.LeetCodeTasks.sumRange;
+import static src.LeetCodeTasks.twoSum;
+import static src.LeetCodeTasks.twoSum2;
 
 
 public class LeetCodeTests {
@@ -154,5 +163,50 @@ public class LeetCodeTests {
         assert sumRange(new int[]{-2, 0, 3, -5, 2, -1}, 0, 2) == 1;
         assert sumRange(new int[]{-2, 0, 3, -5, 2, -1}, 2, 5) == -1;
         assert sumRange(new int[]{-2, 0, 3, -5, 2, -1}, 0, 5) == -3;
+    }
+
+    @Test
+    public void testFindMaxLength() {
+        assert findMaxLength(new int[]{0, 1, 1, 1, 0, 0}) == 6;
+        assert findMaxLength(new int[]{0, 1, 1, 1, 1, 1, 0, 0}) == 4;
+        assert findMaxLength(new int[]{1, 1, 0, 0, 1, 1, 0, 1, 0, 1}) == 8;
+        assert findMaxLength(new int[]{1, 0, 1, 1, 0, 1, 1, 1, 0, 1}) == 4;
+        assert findMaxLength(new int[]{1, 0, 0, 0, 1, 1, 0, 1, 1, 0}) == 10;
+    }
+
+    @Test
+    public void testBinaryRotated() {
+        System.out.println(findLeft(new int[]{1, 3}));
+        System.out.println(searchInShifted(new int[]{3, 1}, 3));
+    }
+
+    @Test
+    public void testBinarySearch() {
+        System.out.println(binarySearch(new int[]{1, 2, 3, 4, 5, 6, 7}, 7));
+        System.out.println(binarySearchRec(new int[]{1, 2, 3, 4, 5, 6, 7}, 7, 0, 7));
+    }
+
+    @Test
+    public void testFindDuplicate() {
+        assert findDuplicate(new int[]{3, 1, 3, 4, 2}) == 3;
+        assert findDuplicate(new int[]{1, 3, 4, 2, 2}) == 2;
+        assert findDuplicate(new int[]{3, 3, 3, 3, 3}) == 3;
+    }
+
+    @Test
+    public void testPeakIndex() {
+        assert peakIndexInMountainArray(new int[]{3, 5, 3, 2, 0}) == 1;
+    }
+
+    @Test
+    public void testTwoSum2() {
+        assert Arrays.equals(twoSum2(new int[]{-1, -1, 1, 1}, -2), new int[]{0, 1});
+        assert Arrays.equals(twoSum2(new int[]{-1000, -1, 0, 1}, 1), new int[]{2, 3});
+        assert Arrays.equals(twoSum2(new int[]{2, 7, 11, 15}, 9), new int[]{0, 1});
+    }
+
+    @Test
+    public void testTwoSum() {
+        assert Arrays.equals(twoSum(new int[]{2, 7, 11, 15}, 9), new int[]{1, 0});
     }
 }
