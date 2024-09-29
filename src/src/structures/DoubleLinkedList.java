@@ -2,32 +2,32 @@ package src.structures;
 
 public class DoubleLinkedList {
 
-    private Node head;
-    private Node tail;
+    private DLNode head;
+    private DLNode tail;
     private int length;
 
-    static class Node {
+    static class DLNode {
         int value;
-        Node next;
-        Node prev;
+        DLNode next;
+        DLNode prev;
 
-        Node(int value) {
+        DLNode(int value) {
             this.value = value;
         }
     }
 
     public DoubleLinkedList(int value) {
-        Node newNode = new Node(value);
-        head = newNode;
-        tail = newNode;
+        DLNode newDLNode = new DLNode(value);
+        head = newDLNode;
+        tail = newDLNode;
         length = 1;
     }
 
-    public Node getHead() {
+    public DLNode getHead() {
         return head;
     }
 
-    public Node getTail() {
+    public DLNode getTail() {
         return tail;
     }
 
@@ -36,7 +36,7 @@ public class DoubleLinkedList {
     }
 
     public void printList() {
-        Node temp = head;
+        DLNode temp = head;
         while (temp != null) {
             System.out.println(temp.value);
             temp = temp.next;
@@ -67,21 +67,21 @@ public class DoubleLinkedList {
     }
 
     public void append(int value) {
-        Node newNode = new Node(value);
+        DLNode newDLNode = new DLNode(value);
         if (length == 0) {
-            head = newNode;
-            tail = newNode;
+            head = newDLNode;
+            tail = newDLNode;
         } else {
-            tail.next = newNode;
-            newNode.prev = tail;
-            tail = newNode;
+            tail.next = newDLNode;
+            newDLNode.prev = tail;
+            tail = newDLNode;
         }
         length++;
     }
 
-    public Node get(int index) {
+    public DLNode get(int index) {
         if (index < 0 || index >= length) return null;
-        Node temp = head;
+        DLNode temp = head;
         if (index < length / 2) {
             for (int i = 0; i < index; i++) {
                 temp = temp.next;
@@ -96,20 +96,20 @@ public class DoubleLinkedList {
     }
 
     public void reverse() {
-        Node temp = head;
+        DLNode temp = head;
         while (temp != null) {
-            Node node = new Node(0);
-            node.next = temp.next;
+            DLNode DLNode = new DLNode(0);
+            DLNode.next = temp.next;
             temp.next = temp.prev;
-            temp.prev = node.next;
+            temp.prev = DLNode.next;
             temp = temp.prev;
         }
 
         if (head != null && tail != null) {
-            Node node = new Node(head.value);
-            node.prev = head.prev;
+            DLNode DLNode = new DLNode(head.value);
+            DLNode.prev = head.prev;
             head = tail;
-            tail = node;
+            tail = DLNode;
         }
     }
 
