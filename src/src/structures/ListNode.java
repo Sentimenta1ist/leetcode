@@ -23,5 +23,7 @@ public class ListNode {
             pointer = pointer.next;
         }
         System.out.printf("null\n");
+
+
     }
 }

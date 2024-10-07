@@ -6,24 +6,24 @@ import java.util.List;
 
 public class Trie {
 
-    public static class Node {
-        List<Node> children = new ArrayList<>();
+    public static class TrieNode {
+        List<TrieNode> children = new ArrayList<>();
         boolean isKey;
         Character s;
 
-        Node(Character s, boolean isKey){
+        TrieNode(Character s, boolean isKey){
             this.s = s;
             this.isKey = isKey;
         }
     }
 
-    Node root;
+    TrieNode root;
 
     public Trie() {
-        root = new Node(null, false);
+        root = new TrieNode(null, false);
     }
 
-    private int lastNode(String word, Node curr) {
+    private int lastNode(String word, TrieNode curr) {
         return 0;
     }
 
@@ -31,14 +31,14 @@ public class Trie {
         int index = 0;
 
 
-        Node curr = root;
+        TrieNode curr = root;
 
         while (true) {
             boolean noInChild = true;
-            for(Node node : curr.children) {
-                if(index < word.length() && word.charAt(index) == node.s) {
+            for(TrieNode trieNode : curr.children) {
+                if(index < word.length() && word.charAt(index) == trieNode.s) {
                     noInChild = false;
-                    curr = node;
+                    curr = trieNode;
                     index++;
                     break;
                 }
@@ -49,23 +49,23 @@ public class Trie {
         }
 
         while(index < word.length()) {
-            Node node = new Node(word.charAt(index), false);
-            curr.children.add(node);
-            curr = node;
+            TrieNode trieNode = new TrieNode(word.charAt(index), false);
+            curr.children.add(trieNode);
+            curr = trieNode;
             index++;
         }
         curr.isKey = true;
     }
 
     public boolean search(String word) {
-        Node curr = root;
+        TrieNode curr = root;
         int index = 0;
         while (true) {
             boolean noInChild = true;
-            for (Node node : curr.children) {
-                if (index < word.length() && word.charAt(index) == node.s ) {
+            for (TrieNode trieNode : curr.children) {
+                if (index < word.length() && word.charAt(index) == trieNode.s ) {
                     noInChild = false;
-                    curr = node;
+                    curr = trieNode;
                     index++;
                     break;
                 }
@@ -79,14 +79,14 @@ public class Trie {
     }
 
     public boolean startsWith(String prefix) {
-        Node curr = root;
+        TrieNode curr = root;
         int index = 0;
         while (true) {
             boolean noInChild = true;
-            for (Node node : curr.children) {
-                if (index < prefix.length() && prefix.charAt(index) == node.s ) {
+            for (TrieNode trieNode : curr.children) {
+                if (index < prefix.length() && prefix.charAt(index) == trieNode.s ) {
                     noInChild = false;
-                    curr = node;
+                    curr = trieNode;
                     index++;
                     break;
                 }
@@ -104,28 +104,28 @@ public class Trie {
     }
 
     // Recursive function to print the tree structure
-    private void printNode(Node node, String indent) {
-        if (node == null) {
+    private void printNode(TrieNode trieNode, String indent) {
+        if (trieNode == null) {
             return;
         }
 
         // Print the current node
         System.out.print(indent); // Print the current indentation
-        if (node.s != null) {
-            System.out.print("Character: " + node.s);
+        if (trieNode.s != null) {
+            System.out.print("Character: " + trieNode.s);
         } else {
             System.out.print("Root");
         }
 
         // Check if it's a key
-        if (node.isKey) {
+        if (trieNode.isKey) {
             System.out.print(" (Key)");
         }
 
         System.out.println(); // Move to the next line
 
         // Print the children with increased indentation
-        for (Node child : node.children) {
+        for (TrieNode child : trieNode.children) {
             printNode(child, indent + "  "); // Increase indentation for children
         }
     }
