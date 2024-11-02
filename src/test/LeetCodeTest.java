@@ -1,7 +1,7 @@
 package test;
 
 import org.junit.jupiter.api.Test;
-import src.structures.DoubleLinkedList;
+import src.DoubleLinkedList;
 import src.structures.ListNode;
 import src.structures.TreeNode;
 import src.structures.TreePrinter;

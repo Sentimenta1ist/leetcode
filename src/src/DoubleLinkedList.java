@@ -1,4 +1,4 @@
-package src.structures;
+package src;
 
 public class DoubleLinkedList {
 

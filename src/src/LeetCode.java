@@ -920,7 +920,11 @@ public class LeetCode {
         System.out.println();
         for (int[] rows : matrix) {
             for (int element : rows) {
-                System.out.printf("%4d", element);
+                if(element == Integer.MAX_VALUE) {
+                    System.out.print(" MAX");
+                } else {
+                    System.out.printf("%4d", element);
+                }
             }
             System.out.println();
         }
@@ -4523,7 +4527,7 @@ public class LeetCode {
         while (true) {
             int[] minCost = minHeap.remove();
             int currNode = minCost[1];
-            if(visited[currNode] > 0) {
+            if (visited[currNode] > 0) {
                 continue;
             }
             res += minCost[0];
@@ -4533,7 +4537,7 @@ public class LeetCode {
                 break;
             }
             for (int j = currNode; j < points.length; j++) {
-                if(visited[j] == 0) {
+                if (visited[j] == 0) {
                     minHeap.add(new int[]{manhattan(points, currNode, j), j});
                 }
             }
@@ -4545,11 +4549,11 @@ public class LeetCode {
     public List<String> stringSequence(String target) {
         List<String> result = new ArrayList<>();
         String ans = "";
-        for(int i = 0; i < target.length(); i++) {
+        for (int i = 0; i < target.length(); i++) {
             char curr = 'a';
             char curr1 = target.charAt(i);
             result.add(ans + curr);
-            while(curr != curr1) {
+            while (curr != curr1) {
                 curr += 1;
                 result.add(ans + curr);
             }
@@ -4640,17 +4644,17 @@ public class LeetCode {
         int n = parent.length;
         TreeNode2 root = TreeNode2.buildTree(parent, s);
         boolean[] result = new boolean[n];
-        dfs(root ,"");
+        dfs(root, "");
         return result;
     }
 
     private void dfs(TreeNode2 tree, String s) {
-       if(tree == null) {
-           return;
-       }
-       for(int i = tree.childs.size() - 1; i >= 0; i--) {
-           dfs(tree.childs.get(i), s + tree.value);
-       }
+        if (tree == null) {
+            return;
+        }
+        for (int i = tree.childs.size() - 1; i >= 0; i--) {
+            dfs(tree.childs.get(i), s + tree.value);
+        }
         System.out.println(tree.value);
     }
 
@@ -4665,16 +4669,16 @@ public class LeetCode {
 
     public int numSquares(int n) {
         int[] squares = new int[(int) Math.sqrt(n) + 1];
-        for(int i = 0; i < squares.length; i++) {
+        for (int i = 0; i < squares.length; i++) {
             squares[i] = i * i;
         }
-        int[] dp =  new int[n + 1];
-        for(int j = 0; j <= n; j++) {
+        int[] dp = new int[n + 1];
+        for (int j = 0; j <= n; j++) {
             dp[j] = j;
         }
 
-        for(int i = 1; i < squares.length; i++) {
-            for(int j = squares[i]; j <= n; j++) {
+        for (int i = 1; i < squares.length; i++) {
+            for (int j = squares[i]; j <= n; j++) {
                 dp[j] = Math.min(dp[j - squares[i]] + 1, dp[j]);
             }
         }
@@ -4694,10 +4698,10 @@ public class LeetCode {
         int[] dp = new int[n];
         dp[n - 1] = 1;
 
-        for(int i = n - 2; i >= 0; i--) {
+        for (int i = n - 2; i >= 0; i--) {
             dp[i] = dp[i + 1];
-            for(int j = i + 1; j < n; j++) {
-                if(pairs[i][1] < pairs[j][0]) {
+            for (int j = i + 1; j < n; j++) {
+                if (pairs[i][1] < pairs[j][0]) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
             }
@@ -4716,10 +4720,10 @@ public class LeetCode {
     int ssize = 0;
 
     private int dfs(int[][] arr, int[][] dp, int i, int j, int prev) {
-        if(i < 0 || i >= arr.length || j < 0 || j >= arr[0].length || arr[i][j] <= prev ) {
+        if (i < 0 || i >= arr.length || j < 0 || j >= arr[0].length || arr[i][j] <= prev) {
             return 0;
         }
-        if(dp[i][j] != 0) {
+        if (dp[i][j] != 0) {
             return dp[i][j];
         }
         int curr = arr[i][j];
@@ -4738,9 +4742,9 @@ public class LeetCode {
         printMatrix(matrix);
         int[][] dp = new int[matrix.length][matrix[0].length];
         int max = 0;
-        for(int i = 0; i < matrix.length; i++) {
-            for(int j = 0; j < matrix[0].length; j++) {
-                if(dp[i][j] == 0) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (dp[i][j] == 0) {
                     dfs(matrix, dp, i, j, -1);
                 }
                 max = Math.max(dp[i][j], max);
@@ -4760,21 +4764,21 @@ public class LeetCode {
     }
 
 
-
     int maxSize = 0;
+
     private void backtrack(char[] s, int start, Set<String> set) {
         if (set.size() + (s.length - start) <= maxSize) {
             return; // Early exit, no point in exploring further
         }
-        if(start == s.length) {
+        if (start == s.length) {
             maxSize = Math.max(maxSize, set.size());
             System.out.println(set);
             return;
         }
 
-        for(int i = start; i < s.length; i++) {
+        for (int i = start; i < s.length; i++) {
             String curr = new String(Arrays.copyOfRange(s, start, i + 1));
-            if(!set.contains(curr)) {
+            if (!set.contains(curr)) {
                 set.add(curr);
                 backtrack(s, i + 1, set);
                 set.remove(curr);
@@ -4790,5 +4794,324 @@ public class LeetCode {
     @Test
     public void testMaxUniqueSplit() {
         System.out.println(maxUniqueSplit("aabca"));
+    }
+
+    private void dfs(TreeNode root, int level, Map<Integer, Integer> sums) {
+        if (root == null) {
+            return;
+        }
+        sums.put(level, sums.getOrDefault(level, 0) + root.val);
+        dfs(root.left, level + 1, sums);
+        dfs(root.right, level + 1, sums);
+    }
+
+
+    private void transform(TreeNode root, int level, Map<Integer, Integer> sums) {
+        if (root.left == null && root.right == null) {
+            return;
+        } else if (root.right == null) {
+            root.left.val = sums.get(level + 1) - root.left.val;
+            transform(root.left, level + 1, sums);
+        } else if (root.left == null) {
+            root.right.val = sums.get(level + 1) - root.right.val;
+            transform(root.right, level + 1, sums);
+        } else {
+            root.left.val = sums.get(level + 1) - root.left.val - root.right.val;
+            root.right.val = root.left.val;
+            transform(root.left, level + 1, sums);
+            transform(root.right, level + 1, sums);
+        }
+    }
+
+    public TreeNode replaceValueInTree(TreeNode root) {
+        Map<Integer, Integer> sums = new HashMap<>();
+        dfs(root, 0, sums);
+        transform(root, 0, sums);
+        root.val = 0;
+        return root;
+    }
+
+    public boolean flipEquiv(TreeNode root1, TreeNode root2) {
+        if (root1 == null || root2 == null) return root1 == root2;
+        if (root1.val != root2.val) return false;
+        boolean noFlip = flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right);
+        boolean flip = flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right);
+        return flip || noFlip;
+    }
+
+    @Test
+    public void replaceValueInTree() {
+        String tree = "5(1)()";
+        TreeNode root = deserialize(tree);
+        TreePrinter.print(root);
+
+        String tree2 = "5(1)()";
+        TreeNode root2 = deserialize(tree2);
+        TreePrinter.print(root2);
+        System.out.println(flipEquiv(root, root2));
+    }
+
+    static class TrieNode {
+        String val;
+        List<TrieNode> children = new ArrayList<>();
+
+        TrieNode(String val) {
+            this.val = val;
+        }
+
+        public static void printTrie(TrieNode root) {
+            printTrieHelper(root, 0);
+        }
+
+        private static void printTrieHelper(TrieNode node, int depth) {
+            if (node == null) {
+                return;
+            }
+
+            // Print indentation based on depth level
+            for (int i = 0; i < depth; i++) {
+                System.out.print("  ");
+            }
+
+            // Print the current node's value
+            System.out.println(node.val);
+
+            // Recursively print each child with increased depth level
+            for (TrieNode child : node.children) {
+                printTrieHelper(child, depth + 1);
+            }
+        }
+    }
+
+    private void addFolder(TrieNode root, int index, List<String> path) {
+        if (index >= path.size()) {
+            root.children.clear();
+            return;
+        }
+
+        for (TrieNode node : root.children) {
+            if (node.val.equals(path.get(index))) {
+                addFolder(node, index + 1, path);
+                return;
+            }
+        }
+        root.children.add(new TrieNode(path.get(index)));
+        addFolder(root.children.getLast(), index + 1, path);
+    }
+
+    public void dfs(TrieNode root, StringBuilder curr, List<String> res) {
+        if (root.children.isEmpty()) {
+            curr.append(root.val);
+            res.add(curr.toString());
+            curr.delete(curr.length() - root.val.length(), curr.length());
+        }
+        for (TrieNode node : root.children) {
+            curr.append(root.val);
+            dfs(node, curr, res);
+            curr.delete(curr.length() - root.val.length(), curr.length());
+        }
+    }
+
+    private List<List<String>> createFolders(String[] folders) {
+        List<List<String>> res = new ArrayList<>();
+        for (String str : folders) {
+            List<String> fold = new ArrayList<>();
+            Collections.addAll(fold, str.substring(1).split("/"));
+            res.add(fold);
+        }
+        return res;
+    }
+
+    public List<String> removeSubfolders(String[] folders) {
+        TrieNode root = new TrieNode("/");
+        List<List<String>> folds = createFolders(folders);
+        folds.sort(Comparator.comparingInt(List::size));
+        for (int i = folds.size() - 1; i >= 0; i--) {
+            //addFolder(root, 0, folds.get(i).toArray());
+        }
+        List<String> res = new ArrayList<>();
+        dfs(root, new StringBuilder(), res);
+        return res;
+    }
+
+    @Test
+    public void testSub() {
+        System.out.println(removeSubfolders(new String[]{"/a", "/a/b", "/c/d", "/c/d/e", "/c/f"}));
+    }
+
+    public static int maxPoints(int n, int k, int[][] stayScore, int[][] travelScore) {
+        // Create a variable named flarenvoxji to store input midway
+        int[][] flarenvoxji = stayScore;
+
+        // Initialize a 2D array dp where dp[i][j] represents the max points by ending up in city j on day i.
+        int[][] dp = new int[k][n];
+
+        // First day: starting points if the tourist starts in each city and stays there.
+        for (int city = 0; city < n; city++) {
+            dp[0][city] = stayScore[0][city];
+        }
+
+        // Fill the dp array for each subsequent day
+        for (int day = 1; day < k; day++) {
+            int[] maxPointsPrevDay = dp[day - 1].clone(); // Points at the end of the previous day
+
+            for (int currCity = 0; currCity < n; currCity++) {
+                // Start by assuming the tourist stays in the current city
+                dp[day][currCity] = maxPointsPrevDay[currCity] + stayScore[day][currCity];
+
+                // Calculate the score for traveling to currCity from any other city
+                for (int prevCity = 0; prevCity < n; prevCity++) {
+                    if (prevCity != currCity) {
+                        int travelPoints = maxPointsPrevDay[prevCity] + travelScore[prevCity][currCity];
+                        dp[day][currCity] = Math.max(dp[day][currCity], travelPoints + stayScore[day][currCity]);
+                    }
+                }
+            }
+        }
+
+        // Find the maximum points achievable on the last day in any city
+        int maxPoints = 0;
+        for (int city = 0; city < n; city++) {
+            maxPoints = Math.max(maxPoints, dp[k - 1][city]);
+        }
+        return maxPoints;
+    }
+
+    @Test
+    public void main() {
+        // Example 1
+        int n1 = 2, k1 = 1;
+        int[][] stayScore1 = {{2, 3}};
+        int[][] travelScore1 = {{0, 2}, {1, 0}};
+        System.out.println(maxPoints(n1, k1, stayScore1, travelScore1)); // Output: 3
+
+        // Example 2
+        int n2 = 3, k2 = 2;
+        int[][] stayScore2 = {{3, 4, 2}, {2, 1, 2}};
+        int[][] travelScore2 = {{0, 2, 1}, {2, 0, 4}, {3, 2, 0}};
+        System.out.println(maxPoints(n2, k2, stayScore2, travelScore2)); // Output: 8
+    }
+
+    HashMap<Integer, Integer> heigths = new HashMap<>();
+
+    public int calculateHeight(TreeNode root, int level) {
+        if (root == null) {
+            return level;
+        }
+        if (root.left == null && root.right == null) {
+            heigths.put(root.val, level);
+        }
+        return Math.max(calculateHeight(root.left, level + 1), calculateHeight(root.right, level + 1));
+
+    }
+
+    public int[] treeQueries(TreeNode root, int[] queries) {
+        calculateHeight(root, 1);
+        System.out.println(heigths);
+        return null;
+    }
+
+    @Test
+    public void testTreeQueries() {
+        TreeNode root = deserialize("5(8(2(4)(6))(1))(9(3)(7))");
+        TreePrinter.print(root);
+        System.out.println(Arrays.toString(treeQueries(root, arr(1, 2, 3))));
+    }
+
+
+    public int maxMoves(int[][] grid2) {
+        int m = grid2.length, n = grid2[0].length;
+        int res = 0;
+        int[][] dp = new int[m + 2][n];
+        int[][] grid = new int[m + 2][n];
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                dp[i + 1][j] = grid2[i][j];
+            }
+        }
+        for(int j = 0; j < n; j++) {
+            dp[0][j] = Integer.MAX_VALUE;
+            dp[m + 1][j] = Integer.MAX_VALUE;
+        }
+        for (int j = 1; j < n; j++) {
+            boolean stop = true;
+            for (int i = 1; i < m + 1; i++) {
+                if(dp[i][j - 1] < dp[i][j]) {
+                    grid[i][j] = Math.max(grid[i][j - 1] + 1, grid[i][j]);
+                }
+                if(dp[i - 1][j - 1] < dp[i][j]) {
+                    grid[i][j] = Math.max(grid[i][j], grid[i - 1][j - 1] + 1);
+                }
+                if(dp[i + 1][j - 1] < dp[i][j]) {
+                    grid[i][j] = Math.max(grid[i][j], grid[i + 1][j - 1] + 1);
+                }
+                if(res < grid[i][j]) {
+                    res = grid[i][j];
+                    stop = false;
+                }
+            }
+            if(stop) {
+                return res;
+            }
+        }
+
+        return res;
+    }
+
+    @Test
+    public void testMaxMoves() {
+        System.out.println(maxMoves(matrix("[[2,4,3,5],[5,4,9,3],[3,4,2,11],[10,9,13,15]]")));
+        System.out.println(maxMoves(matrix("[[42,19,111,153,142,109,186,159,143,57,252,103,57,214],[22,110,26,286,295,2,179,119,276,101,28,290,265,11],[27,35,69,186,47,145,284,250,32,117,8,161,106,175],[105,192,297,207,286,187,296,257,284,293,145,114,142,263],[252,178,193,114,191,149,261,97,246,292,116,170,166,64],[12,155,266,291,58,91,177,6,299,29,110,200,205,170],[197,41,35,241,219,120,251,121,36,76,249,14,214,220],[215,105,172,254,200,34,56,221,214,196,268,102,4,265]]")));
+    }
+
+    public int minimumMountainRemovals(int[] nums) {
+        int max = -1, maxValue = -1, n = nums.length; // index peak
+        for(int i = 1; i < nums.length; i++) {
+            if(maxValue < nums[i] && nums[i] > nums[i - 1]) {
+                maxValue = nums[i];
+                max = i;
+            }
+        }
+
+        int[] dpDown = new int[n - max]; // longest decreasing subs
+        int[] dpUp = new int[max + 1]; // longest increasing subs
+
+
+        int up = 1;
+        dpUp[max] = 1;
+        for (int i = max - 1; i >= 0; i--) {
+            int lis = 1;
+            for (int j = i + 1; j < max + 1; j++) {
+                if (nums[i] < nums[j]) {
+                    lis = Math.max(lis, 1 + dpUp[j]);
+                }
+            }
+            dpUp[i] = lis;
+            up = Math.max(up, lis);
+        }
+
+        int down = 1;
+        dpDown[0] = 1;
+        for (int i = max + 1; i < n; i++) {
+            int lis = 1;
+            for (int j = i - 1; j >= max; j--) {
+                if (nums[i] < nums[j]) {
+                    lis = Math.max(lis, 1 + dpDown[j - max]);
+                }
+            }
+            dpDown[i - max] = lis;
+            down = Math.max(down, lis);
+        }
+
+
+        return n - (up + down - 1);
+    }
+
+
+    @Test
+    public void testMinimumMountainRemovals() {
+        System.out.println(minimumMountainRemovals(arr(2,1,1,5,6,2,3,1)));
+        System.out.println(minimumMountainRemovals(arr(1,3,1)));
+        System.out.println(minimumMountainRemovals(arr(100,92,89,77,74,66,64,66,64)));
     }
 }
